@@ -14,9 +14,12 @@ const db = nano.use( 'games' );
 app.use( express.static( path.join( __dirname, 'web' ) ) );
 
 const connections = [];
+const games = [];
 
 io.on( 'connection', ( client ) => {
     connections.push( client.id );
+
+    io.emit( 'connections', connections.length );
 
     client.on( 'event', ( data ) => {
         console.log( `got ${ data }` );
