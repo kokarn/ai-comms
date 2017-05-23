@@ -33,3 +33,14 @@ The move should be lowercase.
 You will then get a `round-ended` event with the result for the round.
 You will then get a `game-ended` event with the result for the whole game.
 
+
+### Running the server
+cd into the `server` folder
+run `npm install`
+run `npm start`
+
+
+### Running the opponents
+cd into the opponent folder you want to run
+run `npm install`
+run `npm start`
