@@ -6,12 +6,13 @@ class RockPaperScissors {
         this.state = 'waiting';
         this.type = 'simultaneous';
         this.winner = false;
+        this.opponent = false;
     }
 
     addPlayer ( client ){
         this.players.push( client );
 
-        console.log( `Player ${ client.id } join a game of RockPaperScissors` );
+        console.log( `Player ${ client.id } joined a game of Rock Paper Scissors` );
 
         client.on( 'move', ( moveData ) => {
             this.addMove( client.id, moveData );
@@ -22,16 +23,24 @@ class RockPaperScissors {
 
     removePlayer ( clientId ) {
         for ( let i = 0; i < this.players.length; i = i + 1 ) {
-            if( this.players.id === clientId ) {
+            if( this.players[ i ].id === clientId ) {
                 this.players.splice( i, 1 );
 
                 if ( this.state === 'running' ) {
                     this.state = 'error';
                 }
 
+                if ( this.players.length === 0 ) {
+                    this.opponent = false;
+                }
+
                 break;
             }
         }
+    }
+
+    requestOpponent ( opponentIdentifier ) {
+        this.opponent = opponentIdentifier;
     }
 
     maybeStart() {

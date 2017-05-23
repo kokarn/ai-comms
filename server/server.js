@@ -43,10 +43,52 @@ const checkGames = function checkGames(){
     }
 };
 
+const findGame = function findGame( gameType, clientId, opponent ){
+    if ( waitingGames[ gameType ].length <= 0 ) {
+        return false;
+    }
+
+
+    for ( let i = 0; i < waitingGames[ gameType ].length; i = i + 1 ) {
+        let currentGame = waitingGames[ gameType ][ i ];
+        // If we have a game with no players, use that
+        if ( currentGame.players.length < 1 ) {
+            if ( opponent ) {
+                currentGame.requestOpponent( opponent );
+            }
+
+            return currentGame;
+        }
+
+        // If we have a game with an opponent as this client id, use that
+        if ( currentGame.opponent === clientId ) {
+            return currentGame;
+        }
+
+        // If we have a game with an opponent as this client id, use that
+        if ( !currentGame.opponent ) {
+            if ( currentGame.players && opponent ) {
+                for ( let playerIndex = 0; playerIndex < currentGame.players.length; playerIndex = playerIndex + 1 ) {
+                    if ( currentGame.players[ playerIndex ].id === opponent ) {
+                        return currentGame;
+                    }
+                }
+
+                // If we haven't returned before this, it's not matching
+                return false;
+            }
+
+            return currentGame;
+        }
+    }
+
+    return false;
+};
+
 io.on( 'connection', ( client ) => {
     connections.push( client.id );
 
-    console.log( 'client connected' );
+    console.log( `Client ${ client.id } connected` );
 
     io.emit( 'connections', connections.length );
 
@@ -61,17 +103,26 @@ io.on( 'connection', ( client ) => {
 
         checkGames();
 
-        if ( waitingGames[ gameConfig.type ].length === 0 ) {
-            waitingGames[ gameConfig.type ].push( new games[ gameConfig.type ] );
+        let game = findGame( gameConfig.type, client.id, gameConfig.opponent );
+
+        if ( !game ) {
+            game = new games[ gameConfig.type ];
+
+            if ( gameConfig.opponent ) {
+                game.requestOpponent( gameConfig.opponent );
+            }
+
+            waitingGames[ gameConfig.type ].push( game );
         }
 
-        waitingGames[ gameConfig.type ][ 0 ].addPlayer( client );
-        client.game = waitingGames[ gameConfig.type ][ 0 ];
+        game.addPlayer( client );
 
         checkGames();
     } );
 
-    client.on( 'disconnect', ( something ) => {
+    client.on( 'disconnect', () => {
+        console.log( `Client ${ client.id } disconnected` );
+
         for ( const gameType in runningGames ) {
             for ( let i = 0; i < runningGames[ gameType ].length; i = i + 1 ) {
                 runningGames[ gameType ][ i ].removePlayer( client.id );
@@ -83,6 +134,8 @@ io.on( 'connection', ( client ) => {
                 waitingGames[ gameType ][ i ].removePlayer( client.id );
             }
         }
+
+        checkGames();
 
         connections.splice( connections.indexOf( client.id ), 1 );
     } );
