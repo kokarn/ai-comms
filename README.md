@@ -25,6 +25,7 @@ You will then get an event called `send-move`.
 This is your instruction to send your move.
 
 Then you should send a `move` event with your move as payload.
+The move should be lowercase.
 ```javascript
 'paper'
 ```
