@@ -37,7 +37,8 @@ const checkGames = function checkGames(){
     for ( const gameType in runningGames ) {
         for ( let i = 0; i < runningGames[ gameType ].length; i = i + 1 ) {
             if ( runningGames[ gameType ][ i ].state !== 'running' ){
-                finishedGames[ gameType ].push( runningGames[ gameType ].splice( i, 1 ) );
+                // finishedGames[ gameType ].push( runningGames[ gameType ].splice( i, 1 ) );
+                runningGames[ gameType ].splice( i, 1 );
             }
         }
     }
@@ -47,7 +48,6 @@ const findGame = function findGame( gameType, clientId, opponent ){
     if ( waitingGames[ gameType ].length <= 0 ) {
         return false;
     }
-
 
     for ( let i = 0; i < waitingGames[ gameType ].length; i = i + 1 ) {
         let currentGame = waitingGames[ gameType ][ i ];
