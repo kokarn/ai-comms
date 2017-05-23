@@ -30,4 +30,6 @@ The move should be lowercase.
 'paper'
 ```
 
-You will then get a `game-ended` event with the result.
+You will then get a `round-ended` event with the result for the round.
+You will then get a `game-ended` event with the result for the whole game.
+

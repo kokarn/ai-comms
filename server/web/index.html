@@ -37,8 +37,12 @@
                 socket.emit( 'move', move );
             } );
 
+            socket.on( 'round-ended', ( roundData ) => {
+                // console.log( roundData );
+            } );
+
             socket.on( 'game-ended', ( gameData ) => {
-                console.log( gameData.result, move );
+                console.log( gameData );
 
                 setButtonText( `${ gameData.result }! - Press to join` );
             } );

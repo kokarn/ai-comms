@@ -37,15 +37,16 @@ socket.on( 'send-move', ( data ) => {
     socket.emit( 'move', moves[ moveIndex ] );
 } );
 
-socket.on( 'game-ended', ( gameData ) => {
-    // console.log( gameData.result, moveIndex );
-    gamesPlayed = gamesPlayed + 1;
-
-    if ( gameData.result === 'win' ) {
+socket.on( 'round-ended', ( roundData ) => {
+    if ( roundData.result === 'win' ) {
         moveIndex = moveIndex - 1 % 3;
-    } else if ( gameData.result === 'loss' ) {
+    } else if ( roundData.result === 'loss' ) {
         moveIndex = moveIndex + 1 % 3;
     }
+} );
+
+socket.on( 'game-ended', ( gameData ) => {
+    gamesPlayed = gamesPlayed + 1;
 
     joinGame();
 } );
