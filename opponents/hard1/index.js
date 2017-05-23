@@ -1,4 +1,4 @@
-const socket = require( 'socket.io-client' )( 'ws://192.168.205.117:3000/' );
+const socket = require( 'socket.io-client' )( 'ws://localhost:3000/' );
 
 const moves = [
     'rock',

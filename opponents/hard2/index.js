@@ -1,4 +1,4 @@
-const socket = require( 'socket.io-client' )( 'ws://192.168.205.117:3000/' );
+const socket = require( 'socket.io-client' )( 'ws://localhost:3000/' );
 
 const moves = [
     'rock',
@@ -46,7 +46,7 @@ socket.on( 'game-ended', ( gameData ) => {
     } else if ( gameData.result === 'loss' ) {
         moveIndex = moveIndex + 1 % 3;
     }
-    
+
     moveIndex = moveIndex + 1 % 3;
 
     joinGame();
