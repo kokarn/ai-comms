@@ -95,6 +95,8 @@ class RockPaperScissors {
         }
 
         for ( let i = 0; i < this.players.length; i = i + 1 ) {
+            this.players[ i ].removeAllListeners( 'move' );
+
             if ( this.winner === 'draw' ) {
                 this.players[ i ].emit( 'game-ended', { result: 'draw' } );
 
