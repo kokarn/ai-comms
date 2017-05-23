@@ -46,6 +46,8 @@ const checkGames = function checkGames(){
 io.on( 'connection', ( client ) => {
     connections.push( client.id );
 
+    console.log( 'client connected' );
+
     io.emit( 'connections', connections.length );
 
     client.on( 'event', ( data ) => {

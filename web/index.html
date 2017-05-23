@@ -7,21 +7,23 @@
 </head>
 <body>
     <h1>
-        Hello world
+        Hello games
     </h1>
-    <button class="js-join-game">Join game</button>
+    <button class="js-game-button">Join game</button>
     <pre class="event-log"></pre>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        function getRandomIntInclusive(min, max) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
+        function getRandomIntInclusive( min, max ) {
+            min = Math.ceil( min );
+            max = Math.floor( max );
 
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+            return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
         }
 
+        let socket;
+
         (function(){
-            const socket = io();
+            socket = io();
             const moves = [
                 'rock',
                 'paper',
@@ -37,14 +39,23 @@
 
             socket.on( 'game-ended', ( gameData ) => {
                 console.log( gameData.result, move );
+
+                setButtonText( `${ gameData.result }! - Press to join` );
             } );
+
+            const setButtonText = function setButtonText( text ) {
+                document.querySelector( '.js-game-button' ).innerText = text;
+            }
 
             const joinGame = function joinGame() {
                 socket.emit( 'join-game', {
-                    type: 'RockPaperScissors'
+                    type: 'RockPaperScissors',
+                    opponent: 'random',
                 } );
+
+                setButtonText( 'Waiting for opponent' );
             };
 
-            document.querySelector( '.js-join-game' ).addEventListener( 'click', joinGame );
+            document.querySelector( '.js-game-button' ).addEventListener( 'click', joinGame );
         })();
     </script>

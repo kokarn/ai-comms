@@ -72,8 +72,6 @@ class RockPaperScissors {
     isFinished (){
         this.state = 'finished';
 
-        console.log( JSON.stringify( this.moves, null, 4 ) );
-
         if (
             this.moves[ 0 ].move === 'rock' && this.moves[ 1 ].move === 'scissors' ||
             this.moves[ 0 ].move === 'scissors' && this.moves[ 1 ].move === 'paper' ||
