@@ -6,12 +6,12 @@ const express = require( 'express' )
 const socketio = require( 'socket.io' );
 
 const games = require( './games' );
-const nano = require( 'nano' )( 'http://localhost:5984' );
+// const nano = require( 'nano' )( 'http://localhost:5984' );
 const app = express();
 const server = http.createServer( app );
 const io = socketio( server );
 
-const db = nano.use( 'games' );
+// const db = nano.use( 'games' );
 app.use( express.static( path.join( __dirname, 'web' ) ) );
 
 const connections = [];
