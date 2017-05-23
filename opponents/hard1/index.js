@@ -6,7 +6,7 @@ const moves = [
     'scissors',
 ];
 
-let move = false;
+let moveIndex = false;
 
 let gamesPlayed = 0;
 
@@ -29,17 +29,23 @@ function joinGame(){
 socket.on( 'connect', () => {
     console.log( `Connected to socket server as ${ socket.id }` );
 
+    moveIndex = getRandomIntInclusive( 0, 2 );
     joinGame();
 } );
 
 socket.on( 'send-move', ( data ) => {
-    move = moves[ getRandomIntInclusive( 0, 2 ) ];
-    socket.emit( 'move', move );
+    socket.emit( 'move', moves[ moveIndex ] );
 } );
 
 socket.on( 'game-ended', ( gameData ) => {
-    // console.log( gameData.result, move );
+    // console.log( gameData.result, moveIndex );
     gamesPlayed = gamesPlayed + 1;
+
+    if ( gameData.result === 'win' ) {
+        moveIndex = moveIndex - 1 % 3;
+    } else if ( gameData.result === 'loss' ) {
+        moveIndex = moveIndex + 1 % 3;
+    }
 
     joinGame();
 } );

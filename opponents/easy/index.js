@@ -29,11 +29,11 @@ function joinGame(){
 socket.on( 'connect', () => {
     console.log( `Connected to socket server as ${ socket.id }` );
 
+    move = moves[ getRandomIntInclusive( 0, 2 ) ];
     joinGame();
 } );
 
 socket.on( 'send-move', ( data ) => {
-    move = moves[ getRandomIntInclusive( 0, 2 ) ];
     socket.emit( 'move', move );
 } );
 
