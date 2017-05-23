@@ -9,13 +9,42 @@
     <h1>
         Hello world
     </h1>
+    <button class="js-join-game">Join game</button>
     <pre class="event-log"></pre>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
         (function(){
-            var socket = io();
-            socket.on( 'connections', ( data ) => {
-                console.log( data );
-            });
+            const socket = io();
+            const moves = [
+                'rock',
+                'paper',
+                'scissors',
+            ];
+
+            let move = false;
+
+            socket.on( 'send-move', () => {
+                move = moves[ getRandomIntInclusive( 0, 2 ) ];
+                socket.emit( 'move', move );
+            } );
+
+            socket.on( 'game-ended', ( gameData ) => {
+                console.log( gameData.result, move );
+            } );
+
+            const joinGame = function joinGame() {
+                socket.emit( 'join-game', {
+                    type: 'RockPaperScissors'
+                } );
+            };
+
+            document.querySelector( '.js-join-game' ).addEventListener( 'click', joinGame );
         })();
     </script>
