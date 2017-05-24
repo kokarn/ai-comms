@@ -8,7 +8,7 @@ class RockPaperScissors {
         this.winner = false;
         this.opponent = false;
 
-        this.roundLimit = 50;
+        this.roundLimit = 1000;
         this.rounds = 0;
 
         this.results = {};
@@ -17,7 +17,7 @@ class RockPaperScissors {
     addPlayer ( client ){
         this.players.push( client );
 
-        console.log( `Player ${ client.id } joined a game of Rock Paper Scissors` );
+        // console.log( `Player ${ client.id } joined a game of Rock Paper Scissors` );
 
         client.on( 'move', ( moveData ) => {
             this.addMove( client.id, moveData );
