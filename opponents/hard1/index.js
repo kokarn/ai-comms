@@ -42,9 +42,9 @@ socket.on( 'send-move', ( data ) => {
 
 socket.on( 'round-ended', ( roundData ) => {
     if ( roundData.result === 'win' ) {
-        moveIndex = moveIndex - 1 % 3;
+        moveIndex = ( moveIndex - 1 ) % 3;
     } else if ( roundData.result === 'loss' ) {
-        moveIndex = moveIndex + 1 % 3;
+        moveIndex = ( moveIndex + 1 ) % 3;
     }
 } );
 
