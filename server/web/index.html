@@ -20,33 +20,31 @@
             return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
         }
 
-        let socket;
-
         (function(){
-            socket = io();
+            var socket = io();
             const moves = [
                 'rock',
                 'paper',
                 'scissors',
             ];
 
-            let move = false;
+            var move = false;
 
-            socket.on( 'send-move', () => {
+            socket.on( 'send-move', function(){
                 move = moves[ getRandomIntInclusive( 0, 2 ) ];
                 socket.emit( 'move', move );
             } );
 
-            socket.on( 'round-ended', ( roundData ) => {
+            socket.on( 'round-ended', function( roundData ){
                 // console.log( roundData );
             } );
 
-            socket.on( 'game-ended', ( gameData ) => {
+            socket.on( 'game-ended', function( gameData ){
                 // console.log( gameData );
 
                 document.querySelector( 'pre' ).innerText = JSON.stringify( gameData, null, 4 );
 
-                setButtonText( `Join another game` );
+                setButtonText( 'Join another game' );
             } );
 
             const setButtonText = function setButtonText( text ) {
