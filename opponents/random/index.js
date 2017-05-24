@@ -29,6 +29,9 @@ function joinGame(){
 socket.on( 'connect', () => {
     console.log( `Connected to socket server as ${ socket.id }` );
 
+    socket.emit( 'identifier', 'random' );
+    socket.emit( 'bot' );
+
     joinGame();
 } );
 
