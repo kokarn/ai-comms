@@ -9,8 +9,8 @@
     <h1>
         Hello games
     </h1>
-    <button class="js-game-button">Join game</button>
     <pre class="event-log"></pre>
+    <button class="js-game-button">Join game</button>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         function getRandomIntInclusive( min, max ) {
@@ -42,9 +42,11 @@
             } );
 
             socket.on( 'game-ended', ( gameData ) => {
-                console.log( gameData );
+                // console.log( gameData );
 
-                setButtonText( `${ gameData.result }! - Press to join` );
+                document.querySelector( 'pre' ).innerText = JSON.stringify( gameData, null, 4 );
+
+                setButtonText( `Join another game` );
             } );
 
             const setButtonText = function setButtonText( text ) {
@@ -54,7 +56,7 @@
             const joinGame = function joinGame() {
                 socket.emit( 'join-game', {
                     type: 'RockPaperScissors',
-                    opponent: 'TBCzAIsEbDqIpYglAAAA',
+                    opponent: 'easy',
                 } );
 
                 setButtonText( 'Waiting for opponent' );
