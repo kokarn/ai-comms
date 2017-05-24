@@ -10,6 +10,9 @@ We've written some basic stubs that you can use for the initial connection to th
 [Java](./stubs/java)  
 [Node.js](./stubs/node)  
 
+There is also a very basic web implementation if you just want to try it out.  
+It's running on the same host as the server, so just go to that IP in your browser.
+
 
 ### Socket.io Client Implementations
 [Java](https://github.com/socketio/socket.io-client-java)  
