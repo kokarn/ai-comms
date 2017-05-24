@@ -31,6 +31,8 @@
             var move = false;
 
             socket.on( 'send-move', function(){
+                setButtonText( 'Game in progress...' );
+
                 move = moves[ getRandomIntInclusive( 0, 2 ) ];
                 socket.emit( 'move', move );
             } );
@@ -54,7 +56,7 @@
             const joinGame = function joinGame() {
                 socket.emit( 'join-game', {
                     type: 'RockPaperScissors',
-                    opponent: 'easy',
+                    opponent: 'hard1',
                 } );
 
                 setButtonText( 'Waiting for opponent' );
