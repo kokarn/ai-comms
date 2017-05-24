@@ -73,7 +73,14 @@ const findGame = function findGame( gameType, client, requiredOpponent ){
                     return currentGame;
                 }
             }
+        }
 
+        // Make sure bots don't connect to bots
+        if ( currentGame.players[ 0 ].bot && !client.bot ) {
+            return currentGame;
+        }
+
+        if ( !currentGame.players[ 0 ].bot ) {
             return currentGame;
         }
     }
@@ -94,6 +101,10 @@ io.on( 'connection', ( client ) => {
 
     client.on( 'identifier', ( identifier ) => {
         connections[ identifier ] = client.id;
+    } );
+
+    client.on( 'bot', () => {
+        client.bot = true;
     } );
 
     client.on( 'join-game', ( gameConfig ) => {
