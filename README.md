@@ -6,15 +6,14 @@ The back-end is running Socket.io so the websocket connection might not match th
 ## Stubs
 
 We've written some basic stubs that you can use for the initial connection to the websocket server.
-[Java](./stubs/java)
-[Node.js](./stubs/node)
+
+[Java](./stubs/java)  
+[Node.js](./stubs/node)  
 
 
 ### Socket.io Client Implementations
-[Java](https://github.com/socketio/socket.io-client-java)
-
-[C++](https://github.com/socketio/socket.io-client-cpp)
-
+[Java](https://github.com/socketio/socket.io-client-java)  
+[C++](https://github.com/socketio/socket.io-client-cpp)  
 [Swift](https://github.com/socketio/socket.io-client-swift)
 
 
