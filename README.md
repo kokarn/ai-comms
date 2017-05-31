@@ -31,6 +31,14 @@ Example payload
     type: 'RockPaperScissors'
 }
 ```
+
+If you want to play a specific opponent, add a `opponent` property.
+```
+{
+    type: 'RockPaperScissors'
+    opponent: 'hard1',
+}
+```
 You are then placed in a queue.  
 As soon as another opponent connects to your game will you get an event called `send-move`.  
 This is your instruction to send your move.  
