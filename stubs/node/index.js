@@ -8,6 +8,7 @@ const joinGame = function joinGame(){
             queue: false,
         }
     );
+    console.log( 'Joining game' );
 };
 
 socket.on( 'connect', () => {
@@ -19,8 +20,13 @@ socket.on( 'send-move', () => {
     socket.emit( 'move', 'paper' );
 } );
 
+socket.on( 'round-ended', ( data ) => {
+    console.log( JSON.stringify( data, null, 4 ) );
+} );
+
 socket.on( 'game-ended', ( gameData ) => {
-    console.log( gameData );
+    console.log( 'Game done!' );
+    console.log( JSON.stringify( gameData, null, 4 ) );
 } );
 
 socket.on( 'disconnect', () => {
