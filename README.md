@@ -54,12 +54,16 @@ Example payload
 You will then get a `round-ended` event with the result for the round.  
 You will then get a `game-ended` event with the result for the whole game.
 
+### Easy setup
+An easy way to setup and test is to run both the server and an opponent on your local machine.
+For that you will need [Node.js](https://nodejs.org/en/) installed in your local machine.
+
+Just start both the server and at least one opponent in their own shells.
 
 ### Running the server
 cd into the `server` folder  
 run `npm install`  
 run `npm start`  
-
 
 ### Running the opponents
 cd into the opponent folder you want to run  
